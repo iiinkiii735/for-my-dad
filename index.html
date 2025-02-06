@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #0a1a2f;
+        overflow: hidden;
+        font-family: "Arial", sans-serif;
+      }
+
+      .container {
+        text-align: center;
+        padding: 20px;
+        max-width: 600px;
+      }
+
+      .message {
+        font-size: 2.2em;
+        color: #e0e0e0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        margin: 30px 0;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: 0.5s;
+      }
+
+      .message.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      button {
+        padding: 20px 40px;
+        font-size: 1.5em;
+        background: #2c4a6d;
+        border: 2px solid #3a6ea5;
+        border-radius: 10px;
+        color: #fff;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        background: #3a6ea5;
+        transform: scale(1.05);
+      }
+
+      .stars {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .star {
+        position: absolute;
+        font-size: 24px;
+        animation: float 4s linear infinite;
+        opacity: 0;
+        color: #3a6ea5;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stars" id="stars"></div>
+    <div class="container">
+      <div id="message" class="message"></div>
+      <button onclick="showMessage()">Пап, нажми тут! 👊</button>
+    </div>
+
+    <script>
+      const messages = [
+        "Папа, спасибо, что учил меня быть сильным! Ты — мой главный пример! 💪",
+        "Спасибо за твою мудрость и поддержку. Я горжусь, что я твой сын! 🌟",
+        "Ты всегда был моей опорой. Спасибо за всё, что ты для меня делаешь! 🛡️",
+        "Лучший отец на свете! Спасибо, что показал, что такое настоящий мужчина! 🏆",
+        "Твоя вера в меня помогает достигать целей. Я бесконечно тебя люблю! ❤️",
+        "Пап, ты — мой герой. Спасибо за каждое твоё слово и совет! 🦸♂️",
+      ];
+
+      function createStars() {
+        const starsContainer = document.getElementById("stars");
+        for (let i = 0; i < 15; i++) {
+          const star = document.createElement("div");
+          star.className = "star";
+          star.innerHTML = "★";
+          star.style.left = Math.random() * 100 + "%";
+          star.style.animationDelay = Math.random() * 2 + "s";
+          starsContainer.appendChild(star);
+        }
+      }
+
+      function showMessage() {
+        const messageElement = document.getElementById("message");
+        messageElement.classList.remove("visible");
+
+        setTimeout(() => {
+          messageElement.textContent =
+            messages[Math.floor(Math.random() * messages.length)];
+          messageElement.classList.add("visible");
+        }, 300);
+
+        createStars();
+      }
+
+      window.onload = createStars;
+    </script>
+  </body>
+</html>
